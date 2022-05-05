@@ -15,7 +15,7 @@ jobs:
     steps:    
     - uses: actions/checkout@v2
     - name: Install Report Generator
-      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 5.1.6
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
