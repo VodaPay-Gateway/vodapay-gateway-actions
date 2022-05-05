@@ -1,0 +1,24 @@
+name: Release Notes
+
+on:
+  workflow_call:
+    inputs:
+      release_note:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+
+jobs:
+   ## Creates the release notes
+  release:
+    name: Create Release Notes
+    runs-on: ubuntu-latest
+    steps:          
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: ${{ inputs.release_note }} - (${{ inputs.environment }})
