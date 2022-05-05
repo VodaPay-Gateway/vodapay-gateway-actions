@@ -1,0 +1,41 @@
+name: .NET Build & Test
+
+on:
+  workflow_call:
+    inputs:
+      test_project_name:
+        required: true
+        type: string
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:    
+    - uses: actions/checkout@v2
+    - name: Replace API Key for nuget.config
+      run: |        
+        sed -i 's/$NUGET_API_KEY/${{ secrets.NUGET_API_KEY }}/g' nuget.config
+    - name: Install Report Generator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 5.1.3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]\*" /p:CoverletOutput="./TestResults/" --no-build --verbosity normal
+    - name: Code Coverage 
+      run: reportgenerator "-reports:${{ inputs.test_project_name }}/TestResults/coverage.cobertura.xml" "-targetdir:TestResults/output" "-reporttypes:Html_Dark;MarkdownSummary;Badges"
+      
+    - name: Update resources
+      uses: test-room-7/action-update-file@v1
+      with:
+          # Include all JS files from the `dist` directory
+          file-path: TestResults/output/*
+          commit-msg: Push Test Coverage
+          github-token: ${{ secrets.API_TOKEN_GITHUB }}
