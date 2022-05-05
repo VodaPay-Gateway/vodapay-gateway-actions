@@ -8,15 +8,12 @@ on:
         type: string
 
 jobs:
-  build:
+  test-coverage:
 
     runs-on: ubuntu-latest
 
     steps:    
     - uses: actions/checkout@v2
-    - name: Replace API Key for nuget.config
-      run: |        
-        sed -i 's/$NUGET_API_KEY/${{ secrets.NUGET_API_KEY }}/g' nuget.config
     - name: Install Report Generator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Setup .NET
