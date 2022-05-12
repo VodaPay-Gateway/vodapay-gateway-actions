@@ -19,6 +19,6 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "Release-$(date + %Y-%m-%dT%H:%M:%S)"
+          automatic_release_tag: "Release-${{(date + %Y-%m-%dT%H:%M:%S)}}"
           prerelease: false
           title: ${{ inputs.release_note }} - (${{ inputs.environment }})
