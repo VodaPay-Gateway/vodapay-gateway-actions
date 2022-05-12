@@ -23,4 +23,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "release-${{ env.NOW}}"
           prerelease: false
-          title: ${{ inputs.release_note }} - (${{ inputs.environment }})
+          title: ${{ inputs.release_note }} - ${{ env.NOW}} - (${{ inputs.environment }})
