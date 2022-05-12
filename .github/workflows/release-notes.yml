@@ -15,10 +15,12 @@ jobs:
   release:
     name: Create Release Notes
     runs-on: ubuntu-latest
-    steps:          
+    steps:
+      - name: Set Time
+        run: echo "NOW=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "Release-${{ $(date + %Y-%m-%dT%H:%M:%S) }}"
+          automatic_release_tag: "Release-${{ env.NOW }}"
           prerelease: false
           title: ${{ inputs.release_note }} - (${{ inputs.environment }})
