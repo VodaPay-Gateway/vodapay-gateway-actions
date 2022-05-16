@@ -6,6 +6,10 @@ name: Teams
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   workflow_call:
+  
+env:
+  ## Sets environment variable
+  MS_TEAMS_WEBHOOK_URI: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
