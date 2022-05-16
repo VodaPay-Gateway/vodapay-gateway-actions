@@ -7,7 +7,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   workflow_call:
     inputs:
-      message:
+      teams_message:
         required: true
         type: string
 
@@ -28,6 +28,6 @@ jobs:
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: ${{ inputs.message }}
+          notification-summary: ${{ inputs.teams_message }}
           notification-color: e61e25
           timezone: Africa/Johannesburg
