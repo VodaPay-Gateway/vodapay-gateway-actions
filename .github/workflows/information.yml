@@ -1,0 +1,24 @@
+name: Information
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      release_note:
+        type: string
+        required: true
+
+jobs:
+  ## Information about the release
+  environment:
+    name: Release ${GITHUB_REF#refs/heads/} to ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show environment source
+        run: |        
+            echo "branch: ${GITHUB_REF#refs/heads/}"
+            echo "env: ${{ github.event.inputs.environment }}"
+            echo "env: ${{ github.event.inputs.release_note }}"
