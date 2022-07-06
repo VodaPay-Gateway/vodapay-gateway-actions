@@ -13,12 +13,12 @@ on:
 jobs:
   ## Information about the release
   environment:
-    name: Release ${GITHUB_REF#refs/heads/} to ${{ github.event.inputs.environment }}
+    name: Deployment information
     environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
-      - name: Show environment source
+      - name: Show deployment information
         run: |        
             echo "branch: ${GITHUB_REF#refs/heads/}"
             echo "env: ${{ github.event.inputs.environment }}"
-            echo "env: ${{ github.event.inputs.release_note }}"
+            echo "release notes: ${{ github.event.inputs.release_note }}"
