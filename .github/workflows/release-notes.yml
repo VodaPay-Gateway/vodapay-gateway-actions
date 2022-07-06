@@ -3,12 +3,21 @@ name: Release Notes
 on:
   workflow_call:
     inputs:
-      release_note:
-        required: true
-        type: string
       environment:
         required: true
         type: string
+      crq:
+        description: "CRQ"
+        type: string
+        required: false
+      release_note_link:
+        description: "Release Note Link"
+        type: string
+        required: false
+      release_description:
+        description: "Release Description"
+        type: string
+        required: true
 
 jobs:
    ## Creates the release notes
@@ -23,4 +32,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "release-${{ env.NOW}}"
           prerelease: false
-          title: ${{ inputs.release_note }} - ${{ env.NOW}} - (${{ inputs.environment }})
+          title: ${{ inputs.release_description }} - ${{ env.NOW}} - (${{ inputs.environment }})
