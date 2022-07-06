@@ -6,7 +6,16 @@ on:
       environment:
         required: true
         type: string
-      release_note:
+      crq:
+        description: "CRQ"
+        type: string
+        required: false
+      release_note_link:
+        description: "Release Note Link"
+        type: string
+        required: false
+      release_description:
+        description: "Release Description"
         type: string
         required: true
 
@@ -21,4 +30,6 @@ jobs:
         run: |        
             echo "branch: ${GITHUB_REF#refs/heads/}"
             echo "env: ${{ github.event.inputs.environment }}"
-            echo "release notes: ${{ github.event.inputs.release_note }}"
+            echo "crq: ${{ github.event.inputs.crq }}"
+            echo "release note link: ${{ github.event.inputs.release_note_link }}"
+            echo "release description: ${{ github.event.inputs.release_description }}"
